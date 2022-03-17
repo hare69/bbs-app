@@ -26,8 +26,19 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('create');
+
+        //    // フォームで入力されたユーザー名をセッションに登録
+        //    session(['user_name' => $request->user_name]);
+
+        //    // フォームに入力されたスレッド情報をデータベースへ登録
+        //    $threads = new Thread;
+        //    $form = $request->all();
+        // //    $threads->fill($form)->save();
+   
+        //    // 掲示板ページへリダイレクト
+        //    return redirect('/');
+        return view('BBS.create');
     }
 }

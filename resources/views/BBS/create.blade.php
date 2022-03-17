@@ -17,6 +17,8 @@
 </head>
 <body class="bg-blue-100">
 <ul class="navbar-nav ms-auto">
+
+
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -51,8 +53,8 @@
                         @endguest
                     </ul>
 
-  
-        {{-- 最新ボタン --}}
+
+                    {{-- 最新ボタン --}}
         <div class="flex justify-end mt-2">
         <a href="{{ url('/thread') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer" type="submit" value="最新"></a>
                 </div>
@@ -64,8 +66,8 @@
                 </div>
             </form>
         </div>
-       
-
+        
+    
         {{-- 検索フォーム --}}
         <div class="bg-white rounded-md mt-3 p-3">
             <form action="{{route('thread.search')}}" method="post">
@@ -76,66 +78,40 @@
                 </div>
             </form>
         </div>
+       
+            
 
-        {{-- ページネーション --}}
-        <p class="mt-5">{{ $threads->links() }}</p>
+    <div class="w-11/12 max-w-screen-md m-auto">
 
-        {{-- 投稿 --}}
-        @foreach ($threads as $thread)
-            <div class="bg-white rounded-md mt-1 mb-5 p-3">
-                {{-- スレッド --}}
-                <div>
-                    <p class="mb-2 text-xs">{{$thread->created_at}} ＠{{$thread->user_name}}</p>
-                    <p class="mb-2 text-xl font-bold">{{$thread->message_title}}</p>
-                    <p class="mb-2">{{$thread->message}}</p>
+        {{-- タイトル --}}
+        <h1 class="text-xl font-bold mt-5">{{ env('app_name') }}</h1>
+
+        {{-- 入力フォーム --}}
+        <div class="bg-white rounded-md mt-5 p-3">
+            <form action="{{route('thread.store')}}" method="POST">
+                @csrf
+                {{-- ユーザー識別子の隠し要素 --}}
+                <input type="hidden" name="user_identifier" value="{{session('user_identifier')}}">
+                <div class="flex">
+                    <p class="font-bold">名前:{{ Auth::user()->name }}<p>
+                    <input class="border rounded px-2 ml-2" type="hidden" name="user_name" value="{{ Auth::user()->name }}">
                 </div>
-                {{-- ボタン --}}
-                <div class="flex mt-5">
-                    {{-- 返信 --}}
-                    <form class="flex flex-auto" action="{{route('reply.store')}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="thread_id" value={{$thread->id}}>
-                        <input class="border rounded px-2 w-2/5 md:w-4/12 text-sm md:text-base" type="hidden" name="user_name" placeholder="UserName" value="{{ Auth::user()->name }}" required>
-                        <input class="border rounded px-2 ml-2 w-3/5 md:w-10/12 text-sm md:text-base" type="text" name="message" placeholder="コメント" required>
-                        <input class="px-2 py-1 ml-2 rounded bg-green-600 text-white font-bold link-hover cursor-pointer" type="submit" value="返信">
-                    </form>
-                    {{-- 削除 --}}
-                    @if ($thread->user_identifier == session('user_identifier'))
-                        <form action="{{route('thread.destroy', ['thread'=>$thread->id])}}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <input class="px-2 py-1 ml-2 rounded bg-red-500 text-white font-bold link-hover cursor-pointer" type="submit" value="削除" onclick="return Check()">
-                        </form>
-                    @endif
+                <div class="flex mt-2">
+                    <p class="font-bold">件名</p>
+                    <input class="border rounded px-2 ml-2 flex-auto" type="text" name="message_title" required autofocus>
                 </div>
-                {{-- リプライ --}}
-                <hr class="mt-2 m-auto">
-                <div class="flex justify-end">
-                    <div class="w-11/12">
-                        @foreach ($thread->replies as $reply)
-                            <div>
-                                <p class="mt-2 text-xs">{{$reply->created_at}} ＠{{$reply->user_name}}</p>
-                                <p class="my-2 text-sm">{{$reply->message}}</p>
-                            </div>
-                    
-                            
-                        @endforeach
-                    </div>
+                <div class="flex flex-col mt-2">
+                    <p class="font-bold">本文</p>
+                    <textarea class="border rounded px-2" name="message" required></textarea>
                 </div>
-            </div>
-        @endforeach
-
-        {{-- ページネーション --}}
-        <p class="my-5">{{ $threads->links() }}</p>
-    </div>
-
-    {{-- スレッド削除の確認 --}}
-    <script type="text/javascript">
-        function Check(){
-            var checked = confirm("本当に削除しますか？");
-            if (checked == true) { return true; } else { return false; }
-        }
-    </script>
+                <div class="flex justify-end mt-2">
+                    <input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer" type="submit" value="投稿">
+                </div>
+            </form>
+        </div>
+     
+     
+   
    
 </body>
 </html>
