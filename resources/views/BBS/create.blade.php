@@ -16,6 +16,10 @@
     </style>
 </head>
 <body class="bg-blue-100">
+
+<div class="row flex">
+<img src="{{ asset('image/グループ 72.png') }}" alt="" class="logo">
+
 <ul class="navbar-nav ms-auto">
 
 
@@ -35,7 +39,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->name }}さん
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -52,36 +56,39 @@
                             </li>
                         @endguest
                     </ul>
+</div>
 
-
+<div class="flex">
                     {{-- 最新ボタン --}}
-        <div class="flex justify-end mt-2">
-        <a href="{{ url('/thread') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer" type="submit" value="最新"></a>
+        <div class="justify-end mt-2">
+        <a href="{{ url('/thread') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer border" type="submit" value="最新"></a>
                 </div>
             </form>
         </div>
         {{-- スレ作成 --}}
-        <div class="flex justify-end mt-2">
-        <a href="{{ url('/create') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer" type="submit" value="スレ作成"></a>
+        <div class="justify-end mt-2">
+        <a href="{{ url('/create') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer border" type="submit" value="スレ作成"></a>
                 </div>
             </form>
         </div>
         
-    
+    </div>
+
+    <div class="w-11/12 max-w-screen-md m-auto">
         {{-- 検索フォーム --}}
-        <div class="bg-white rounded-md mt-3 p-3">
+        <div class="rounded-md mt-3 p-3">
             <form action="{{route('thread.search')}}" method="post">
                 @csrf
                 <div class="mx-1 flex">
-                    <input class="border rounded px-2 flex-auto" type="text" name="search_message" required>
-                    <input class="ml-2 px-2 py-1 rounded bg-gray-500 text-white font-bold link-hover cursor-pointer" type="submit" value="検索">
+                    <input class="border rounded px-2 flex-auto" type="text" name="search_message" required placeholder="タイトル検索">
+                    <input class="ml-2 px-2 py-1 bg-blue-300 font-bold link-hover cursor-pointer" type="submit" value="検索">
                 </div>
             </form>
         </div>
        
             
 
-    <div class="w-11/12 max-w-screen-md m-auto">
+    
 
         {{-- タイトル --}}
         <h1 class="text-xl font-bold mt-5">{{ env('app_name') }}</h1>

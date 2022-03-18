@@ -14,9 +14,52 @@
     <style>
         .link-hover:hover {opacity: 70%;}   /* リンクをホバーした時に少し薄く表示 */
     </style>
+
+      
+
 </head>
-<body class="bg-blue-100">
-<ul class="navbar-nav ms-auto">
+<body class="bg-ye-100">
+           
+    <div class="row flex">
+            <img src="{{ asset('image/グループ 72.png') }}" alt="" class="logo">
+
+        <div class="text-center">
+                            
+            <div class="flex">
+                        {{-- 最新ボタン --}}
+                    <div class="justify-end mt-2">
+                        <a href="{{ url('/thread') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer border" type="submit" value="最新"></a>
+                    </div>
+                
+            
+                {{-- スレ作成 --}}
+                    <div class="justify-end mt-2">
+                        <a href="{{ url('/create') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer border" type="submit" value="スレ作成"></a>
+                    </div>
+                    
+            </div>
+
+                <div class="w-4/12 max-w-screen-md m-auto">
+            
+
+                    {{-- 検索フォーム --}}
+                        <div class="rounded-md mt-3 p-3">
+                                <form action="{{route('thread.search')}}" method="post">
+                                    @csrf
+                                    <div class="mx-1 flex">
+                                        <input class="border rounded px-2 flex-auto" type="text" name="search_message" required placeholder="タイトル検索">
+                                        <input class="ml-2 px-2 py-1 rounded bg-blue-300 font-bold link-hover cursor-pointer" type="submit" value="検索">
+                                    </div>
+                                </form>
+                        </div>
+                </div>
+        </div>
+        
+
+        
+                
+
+                    <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -33,7 +76,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->name }}さん
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -50,43 +93,21 @@
                             </li>
                         @endguest
                     </ul>
+    </div>
 
-  
-        {{-- 最新ボタン --}}
-        <div class="flex justify-end mt-2">
-        <a href="{{ url('/thread') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer" type="submit" value="最新"></a>
-                </div>
-            </form>
-        </div>
-        {{-- スレ作成 --}}
-        <div class="flex justify-end mt-2">
-        <a href="{{ url('/create') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer" type="submit" value="スレ作成"></a>
-                </div>
-            </form>
-        </div>
-       
-
-        {{-- 検索フォーム --}}
-        <div class="bg-white rounded-md mt-3 p-3">
-            <form action="{{route('thread.search')}}" method="post">
-                @csrf
-                <div class="mx-1 flex">
-                    <input class="border rounded px-2 flex-auto" type="text" name="search_message" required>
-                    <input class="ml-2 px-2 py-1 rounded bg-gray-500 text-white font-bold link-hover cursor-pointer" type="submit" value="検索">
-                </div>
-            </form>
-        </div>
-
+              <div class="w-11/12 max-w-screen-md m-auto">
+           
+     
         {{-- ページネーション --}}
         <p class="mt-5">{{ $threads->links() }}</p>
 
         {{-- 投稿 --}}
         @foreach ($threads as $thread)
-            <div class="bg-white rounded-md mt-1 mb-5 p-3">
+            <div class="bg-white rounded-md mt-1 mb-5 p-3 border">
                 {{-- スレッド --}}
                 <div>
                     <p class="mb-2 text-xs">{{$thread->created_at}} ＠{{$thread->user_name}}</p>
-                    <p class="mb-2 text-xl font-bold">{{$thread->message_title}}</p>
+                    <p class="mb-2 text-xl font-bold under">{{$thread->message_title}}</p>
                     <p class="mb-2">{{$thread->message}}</p>
                 </div>
                 {{-- ボタン --}}
@@ -110,7 +131,7 @@
                 </div>
                 {{-- リプライ --}}
                 <hr class="mt-2 m-auto">
-                <div class="flex justify-end">
+                <div class="flex justify-end rpy">
                     <div class="w-11/12">
                         @foreach ($thread->replies as $reply)
                             <div>
@@ -128,13 +149,17 @@
         {{-- ページネーション --}}
         <p class="my-5">{{ $threads->links() }}</p>
     </div>
+    </div>
 
+    </div>
     {{-- スレッド削除の確認 --}}
     <script type="text/javascript">
         function Check(){
             var checked = confirm("本当に削除しますか？");
             if (checked == true) { return true; } else { return false; }
         }
+
+        
     </script>
    
 </body>
