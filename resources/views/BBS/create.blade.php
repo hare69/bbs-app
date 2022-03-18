@@ -16,13 +16,47 @@
     </style>
 </head>
 <body class="bg-blue-100">
-
+       
 <div class="row flex">
-<img src="{{ asset('image/グループ 72.png') }}" alt="" class="logo">
+            <img src="{{ asset('image/グループ 72.png') }}" alt="" class="logo">
 
-<ul class="navbar-nav ms-auto">
+        <div class="text-center">
+                            
+            <div class="flex">
+                        {{-- 最新ボタン --}}
+                    <div class="justify-end mt-2">
+                        <a href="{{ url('/thread') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer border" type="submit" value="最新"></a>
+                    </div>
+                
+            
+                {{-- スレ作成 --}}
+                    <div class="justify-end mt-2">
+                        <a href="{{ url('/create') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer border" type="submit" value="スレ作成"></a>
+                    </div>
+                    
+            </div>
 
+                <div class="w-4/12 max-w-screen-md m-auto">
+            
 
+                    {{-- 検索フォーム --}}
+                        <div class="rounded-md mt-3 p-3">
+                                <form action="{{route('thread.search')}}" method="post">
+                                    @csrf
+                                    <div class="mx-1 flex">
+                                        <input class="border rounded px-2 flex-auto" type="text" name="search_message" required placeholder="タイトル検索">
+                                        <input class="ml-2 px-2 py-1 rounded bg-blue-300 font-bold link-hover cursor-pointer" type="submit" value="検索">
+                                    </div>
+                                </form>
+                        </div>
+                </div>
+        </div>
+        
+
+        
+                
+      
+                    <ul class="navbar-nav me-auto">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -56,39 +90,8 @@
                             </li>
                         @endguest
                     </ul>
-</div>
-
-<div class="flex">
-                    {{-- 最新ボタン --}}
-        <div class="justify-end mt-2">
-        <a href="{{ url('/thread') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer border" type="submit" value="最新"></a>
-                </div>
-            </form>
-        </div>
-        {{-- スレ作成 --}}
-        <div class="justify-end mt-2">
-        <a href="{{ url('/create') }}"><input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer border" type="submit" value="スレ作成"></a>
-                </div>
-            </form>
-        </div>
-        
     </div>
-
     <div class="w-11/12 max-w-screen-md m-auto">
-        {{-- 検索フォーム --}}
-        <div class="rounded-md mt-3 p-3">
-            <form action="{{route('thread.search')}}" method="post">
-                @csrf
-                <div class="mx-1 flex">
-                    <input class="border rounded px-2 flex-auto" type="text" name="search_message" required placeholder="タイトル検索">
-                    <input class="ml-2 px-2 py-1 bg-blue-300 font-bold link-hover cursor-pointer" type="submit" value="検索">
-                </div>
-            </form>
-        </div>
-       
-            
-
-    
 
         {{-- タイトル --}}
         <h1 class="text-xl font-bold mt-5">{{ env('app_name') }}</h1>
@@ -115,6 +118,7 @@
                     <input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer" type="submit" value="投稿">
                 </div>
             </form>
+        </div>
         </div>
      
      
