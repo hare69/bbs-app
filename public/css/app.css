@@ -905,6 +905,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
 }
+
+
 @media (prefers-color-scheme: dark) {
 
   .dark\:border-gray-700 {
