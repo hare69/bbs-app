@@ -21,7 +21,7 @@
 <body class="bg-ye-100">
            
     <div class="row flex">
-            <img src="{{ asset('image/グループ 72.png') }}" alt="" class="logo">
+           <a href="{{ url('/thread') }}"> <img src="{{ asset('image/グループ 72.png') }}" alt="" class="logo"></a>
 
         <div class="text-center">
                             

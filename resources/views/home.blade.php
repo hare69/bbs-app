@@ -15,7 +15,7 @@
                     @endif
 
                     {{ __('ログインできました') }}
-                    <a href="{{ url('/thread') }}">トップページ</a>
+                    <a href="{{ url('/thread') }}" class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer border">トップページ</a>
                 </div>
             </div>
         </div>
